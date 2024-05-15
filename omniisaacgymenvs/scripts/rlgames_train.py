@@ -83,6 +83,11 @@ def parse_hydra_configs(cfg: DictConfig):
 
     time_str = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
+    cfg.task.env.numEnvs = 10
+    cfg.task.sim.enable_cameras = True
+    cfg.train.params.config.minibatch_size = cfg.train.params.config.horizon_length * cfg.train.params.config.num_actors
+    cfg.headless = True
+
     headless = cfg.headless
 
     # local rank (GPU id) in a current multi-gpu mode
