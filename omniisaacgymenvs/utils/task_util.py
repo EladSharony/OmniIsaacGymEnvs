@@ -50,6 +50,8 @@ def import_tasks():
     from omniisaacgymenvs.tasks.warp.cartpole import CartpoleTask as CartpoleTaskWarp
     from omniisaacgymenvs.tasks.warp.humanoid import HumanoidLocomotionTask as HumanoidLocomotionTaskWarp
 
+    from omniisaacgymenvs.tasks.utils.decorators import CameraTaskDecorator
+
     # Mappings from strings to environments
     task_map = {
         "AllegroHand": AllegroHandTask,
@@ -72,6 +74,10 @@ def import_tasks():
         "ShadowHandOpenAI_FF": ShadowHandTask,
         "ShadowHandOpenAI_LSTM": ShadowHandTask,
     }
+
+    for key, value in list(task_map.items()):
+        task_map[key] = CameraTaskDecorator(value)
+
 
     task_map_warp = {
         "Cartpole": CartpoleTaskWarp,
